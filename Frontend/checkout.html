@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - FoodPulse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 2rem;">Checkout Details</h1>
+        
+        <div class="cart-layout">
+            <!-- Left Form -->
+            <div class="glass" style="padding: 2.5rem; border-radius: var(--radius-lg);">
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label for="chk-address">Delivery Address</label>
+                        <textarea id="chk-address" placeholder="Enter delivery address" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="chk-payment">Payment Method</label>
+                        <select id="chk-payment" required>
+                            <option value="UPI">UPI</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Debit Card">Debit Card</option>
+                            <option value="Cash on Delivery">Cash on Delivery</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Confirm & Place Order</button>
+                </form>
+            </div>
+            
+            <!-- Right Order Summary -->
+            <div id="checkout-summary-container" class="cart-summary glass">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

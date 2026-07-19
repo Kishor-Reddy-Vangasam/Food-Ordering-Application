@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0a00"/>
+      <stop offset="100%" style="stop-color:#3d1a00"/>
+    </linearGradient>
+    <linearGradient id="board" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5C3317"/>
+      <stop offset="100%" style="stop-color:#8B5E3C"/>
+    </linearGradient>
+    <linearGradient id="bread1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5C842"/>
+      <stop offset="40%" style="stop-color:#E8A020"/>
+      <stop offset="100%" style="stop-color:#C47A10"/>
+    </linearGradient>
+    <linearGradient id="bread2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#EDB830"/>
+      <stop offset="40%" style="stop-color:#D99020"/>
+      <stop offset="100%" style="stop-color:#B86A10"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="3" dy="6" stdDeviation="6" flood-opacity="0.4"/>
+    </filter>
+    <radialGradient id="herb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#90EE90"/>
+      <stop offset="100%" style="stop-color:#228B22"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Dark background -->
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- Wooden cutting board -->
+  <rect x="80" y="180" width="640" height="300" rx="18" fill="url(#board)" filter="url(#shadow)"/>
+  <!-- Board grain lines -->
+  <line x1="80" y1="230" x2="720" y2="230" stroke="#4A2A0A" stroke-width="1.5" opacity="0.4"/>
+  <line x1="80" y1="280" x2="720" y2="280" stroke="#4A2A0A" stroke-width="1.5" opacity="0.35"/>
+  <line x1="80" y1="330" x2="720" y2="330" stroke="#4A2A0A" stroke-width="1.5" opacity="0.4"/>
+  <line x1="80" y1="380" x2="720" y2="380" stroke="#4A2A0A" stroke-width="1.5" opacity="0.35"/>
+  <line x1="80" y1="430" x2="720" y2="430" stroke="#4A2A0A" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Garlic Bread Slice 1 (back) -->
+  <rect x="160" y="220" width="480" height="100" rx="14" fill="url(#bread1)" filter="url(#shadow)"/>
+  <!-- Crust top -->
+  <rect x="160" y="220" width="480" height="22" rx="14" fill="#C47A10"/>
+  <!-- Butter/garlic topping -->
+  <rect x="175" y="248" width="450" height="55" rx="8" fill="#F8E080" opacity="0.85"/>
+  <!-- Garlic chunks -->
+  <ellipse cx="240" cy="272" rx="18" ry="10" fill="#FFFACD" opacity="0.9"/>
+  <ellipse cx="320" cy="265" rx="15" ry="9" fill="#FFFACD" opacity="0.85"/>
+  <ellipse cx="410" cy="275" rx="20" ry="11" fill="#FFFACD" opacity="0.9"/>
+  <ellipse cx="510" cy="268" rx="16" ry="9" fill="#FFFACD" opacity="0.85"/>
+  <ellipse cx="590" cy="273" rx="18" ry="10" fill="#FFFACD" opacity="0.9"/>
+  <!-- Herb specks (parsley) -->
+  <circle cx="260" cy="258" r="4" fill="#3CB371" opacity="0.9"/>
+  <circle cx="350" cy="280" r="3.5" fill="#2E8B57" opacity="0.85"/>
+  <circle cx="440" cy="260" r="4" fill="#3CB371" opacity="0.9"/>
+  <circle cx="530" cy="278" r="3.5" fill="#2E8B57" opacity="0.85"/>
+  <circle cx="290" cy="282" r="3" fill="#228B22" opacity="0.8"/>
+  <circle cx="480" cy="266" r="3" fill="#228B22" opacity="0.8"/>
+
+  <!-- Garlic Bread Slice 2 (front) -->
+  <rect x="145" y="335" width="510" height="108" rx="14" fill="url(#bread2)" filter="url(#shadow)"/>
+  <!-- Crust top -->
+  <rect x="145" y="335" width="510" height="22" rx="14" fill="#B86A10"/>
+  <!-- Butter/garlic topping -->
+  <rect x="162" y="363" width="475" height="55" rx="8" fill="#F5D870" opacity="0.88"/>
+  <!-- Garlic chunks -->
+  <ellipse cx="230" cy="387" rx="19" ry="11" fill="#FFFACD" opacity="0.9"/>
+  <ellipse cx="330" cy="380" rx="16" ry="10" fill="#FFFACD" opacity="0.85"/>
+  <ellipse cx="430" cy="390" rx="21" ry="12" fill="#FFFACD" opacity="0.9"/>
+  <ellipse cx="535" cy="383" rx="17" ry="10" fill="#FFFACD" opacity="0.85"/>
+  <ellipse cx="615" cy="388" rx="18" ry="11" fill="#FFFACD" opacity="0.9"/>
+  <!-- Herb specks (parsley) -->
+  <circle cx="270" cy="372" r="4.5" fill="#3CB371" opacity="0.9"/>
+  <circle cx="370" cy="396" r="4" fill="#2E8B57" opacity="0.85"/>
+  <circle cx="470" cy="374" r="4.5" fill="#3CB371" opacity="0.9"/>
+  <circle cx="560" cy="394" r="4" fill="#2E8B57" opacity="0.85"/>
+  <circle cx="300" cy="396" r="3.5" fill="#228B22" opacity="0.8"/>
+
+  <!-- Steam wisps -->
+  <path d="M300 215 Q295 195 305 175 Q310 155 300 140" stroke="white" stroke-width="3" fill="none" opacity="0.3" stroke-linecap="round"/>
+  <path d="M400 210 Q395 188 408 168 Q415 148 403 132" stroke="white" stroke-width="3" fill="none" opacity="0.25" stroke-linecap="round"/>
+  <path d="M500 215 Q493 192 504 172 Q512 152 502 136" stroke="white" stroke-width="3" fill="none" opacity="0.3" stroke-linecap="round"/>
+
+  <!-- Label -->
+  <rect x="230" y="505" width="340" height="64" rx="12" fill="rgba(0,0,0,0.55)"/>
+  <text x="400" y="535" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#FFD700" text-anchor="middle">🥖 Garlic Bread</text>
+  <text x="400" y="558" font-family="Arial,sans-serif" font-size="15" fill="#FFF0A0" text-anchor="middle">Toasted with garlic butter &amp; herbs</text>
+</svg>

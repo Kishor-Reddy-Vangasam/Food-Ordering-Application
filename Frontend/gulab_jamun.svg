@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0005"/>
+      <stop offset="100%" style="stop-color:#3d0010"/>
+    </linearGradient>
+    <radialGradient id="bowl" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" style="stop-color:#C0A060"/>
+      <stop offset="60%" style="stop-color:#A0803A"/>
+      <stop offset="100%" style="stop-color:#705020"/>
+    </radialGradient>
+    <radialGradient id="syrup" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" style="stop-color:#D4500A"/>
+      <stop offset="100%" style="stop-color:#8B1A00"/>
+    </radialGradient>
+    <radialGradient id="ball1" cx="35%" cy="30%" r="60%">
+      <stop offset="0%" style="stop-color:#E8803A"/>
+      <stop offset="50%" style="stop-color:#C05020"/>
+      <stop offset="100%" style="stop-color:#7A2A08"/>
+    </radialGradient>
+    <radialGradient id="ball2" cx="35%" cy="30%" r="60%">
+      <stop offset="0%" style="stop-color:#D06A28"/>
+      <stop offset="50%" style="stop-color:#A04015"/>
+      <stop offset="100%" style="stop-color:#602005"/>
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="5" stdDeviation="7" flood-opacity="0.5"/>
+    </filter>
+    <filter id="ballshadow">
+      <feDropShadow dx="2" dy="4" stdDeviation="5" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Dark burgundy background -->
+  <rect width="800" height="600" fill="url(#bg)"/>
+
+  <!-- Decorative background dots (rose petals ambiance) -->
+  <circle cx="100" cy="80" r="6" fill="#FF69B4" opacity="0.25"/>
+  <circle cx="680" cy="100" r="5" fill="#FF69B4" opacity="0.2"/>
+  <circle cx="750" cy="200" r="4" fill="#FFD700" opacity="0.2"/>
+  <circle cx="60" cy="300" r="5" fill="#FF69B4" opacity="0.2"/>
+  <circle cx="720" cy="480" r="6" fill="#FFD700" opacity="0.2"/>
+  <circle cx="150" cy="520" r="4" fill="#FF69B4" opacity="0.2"/>
+
+  <!-- Bowl (brass/copper Indian bowl) -->
+  <ellipse cx="400" cy="430" rx="295" ry="45" fill="#6B4A1A" filter="url(#shadow)"/>
+  <path d="M105 310 Q105 430 400 445 Q695 430 695 310 Q695 240 400 235 Q105 240 105 310 Z" fill="url(#bowl)"/>
+  <!-- Bowl rim highlight -->
+  <ellipse cx="400" cy="310" rx="295" ry="75" fill="none" stroke="#D4A830" stroke-width="5" opacity="0.7"/>
+  <ellipse cx="400" cy="308" rx="290" ry="72" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.4"/>
+
+  <!-- Syrup pool inside bowl -->
+  <ellipse cx="400" cy="380" rx="260" ry="42" fill="url(#syrup)" opacity="0.85"/>
+
+  <!-- Gulab Jamun balls — back row -->
+  <circle cx="240" cy="325" r="62" fill="url(#ball2)" filter="url(#ballshadow)"/>
+  <circle cx="240" cy="320" r="55" fill="url(#ball1)"/>
+  <!-- Texture groove -->
+  <ellipse cx="225" cy="308" rx="20" ry="10" fill="rgba(255,255,255,0.12)" transform="rotate(-20 225 308)"/>
+
+  <circle cx="400" cy="305" r="65" fill="url(#ball2)" filter="url(#ballshadow)"/>
+  <circle cx="400" cy="300" r="58" fill="url(#ball1)"/>
+  <ellipse cx="383" cy="287" rx="22" ry="11" fill="rgba(255,255,255,0.13)" transform="rotate(-15 383 287)"/>
+
+  <circle cx="562" cy="325" r="62" fill="url(#ball2)" filter="url(#ballshadow)"/>
+  <circle cx="562" cy="320" r="55" fill="url(#ball1)"/>
+  <ellipse cx="546" cy="308" rx="20" ry="10" fill="rgba(255,255,255,0.12)" transform="rotate(-20 546 308)"/>
+
+  <!-- Gulab Jamun balls — front row -->
+  <circle cx="315" cy="388" r="60" fill="url(#ball2)" filter="url(#ballshadow)"/>
+  <circle cx="315" cy="383" r="53" fill="url(#ball1)"/>
+  <ellipse cx="300" cy="371" rx="19" ry="10" fill="rgba(255,255,255,0.13)" transform="rotate(-18 300 371)"/>
+
+  <circle cx="485" cy="388" r="60" fill="url(#ball2)" filter="url(#ballshadow)"/>
+  <circle cx="485" cy="383" r="53" fill="url(#ball1)"/>
+  <ellipse cx="470" cy="371" rx="19" ry="10" fill="rgba(255,255,255,0.13)" transform="rotate(-18 470 371)"/>
+
+  <!-- Saffron strands on top balls -->
+  <line x1="380" y1="278" x2="420" y2="268" stroke="#FF8C00" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+  <line x1="395" y1="282" x2="430" y2="275" stroke="#FFD700" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+  <line x1="360" y1="285" x2="385" y2="272" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Silver varq (edible silver leaf) sparkle dots -->
+  <circle cx="400" cy="293" r="3" fill="white" opacity="0.7"/>
+  <circle cx="240" cy="313" r="2.5" fill="white" opacity="0.65"/>
+  <circle cx="560" cy="313" r="2.5" fill="white" opacity="0.65"/>
+
+  <!-- Syrup drips on balls -->
+  <path d="M420 360 Q425 375 418 385" stroke="#D4500A" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round"/>
+  <path d="M265 360 Q260 375 268 388" stroke="#D4500A" stroke-width="2.5" fill="none" opacity="0.65" stroke-linecap="round"/>
+
+  <!-- Label -->
+  <rect x="210" y="488" width="380" height="68" rx="12" fill="rgba(0,0,0,0.6)"/>
+  <text x="400" y="520" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#FFD700" text-anchor="middle">🍮 Gulab Jamun</text>
+  <text x="400" y="545" font-family="Arial,sans-serif" font-size="15" fill="#FFB6C1" text-anchor="middle">Soft dumplings soaked in rose syrup</text>
+</svg>

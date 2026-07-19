@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FoodPulse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem;">Global Administration Console</h1>
+        
+        <!-- Admin Navigation Tabs -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+            <button class="btn btn-primary admin-tab-btn" data-tab="customers">Manage Customers</button>
+            <button class="btn btn-secondary admin-tab-btn" data-tab="restaurants">Manage Restaurants</button>
+            <button class="btn btn-secondary admin-tab-btn" data-tab="foods">Manage Foods</button>
+            <button class="btn btn-secondary admin-tab-btn" data-tab="cart">Manage Cart Items</button>
+            <button class="btn btn-secondary admin-tab-btn" data-tab="orders">Manage Orders</button>
+        </div>
+
+        <!-- Dynamic Content Pane -->
+        <div id="admin-tab-content" style="display: flex; flex-direction: column; gap: 2rem;">
+            <!-- Rendered dynamically by script.js -->
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

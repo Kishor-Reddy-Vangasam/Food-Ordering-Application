@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Restaurants - FoodPulse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem;">Explore Restaurants</h1>
+        
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="search-input-wrapper">
+                <input type="text" id="rest-search" placeholder="Search by restaurant name, cuisine or city...">
+            </div>
+            <div>
+                <select id="filter-cuisine" class="select-filter">
+                    <option value="">All Cuisines</option>
+                    <!-- Populated dynamically -->
+                </select>
+            </div>
+            <div>
+                <select id="filter-location" class="select-filter">
+                    <option value="">All Locations</option>
+                    <!-- Populated dynamically -->
+                </select>
+            </div>
+        </div>
+
+        <!-- Restaurants Grid -->
+        <div id="restaurants-grid" class="grid-restaurants">
+            <!-- Dynamically populated by script.js -->
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodPulse - Premium Online Food Ordering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar (rendered dynamically by script.js) -->
+    <header></header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Delicious Food, <br>Delivered <span>In a Pulse</span></h1>
+                <p>Discover the finest cuisines from top-rated local restaurants. Fast delivery, hot food, and live tracking at your fingertips.</p>
+                <div class="search-input-wrapper glass" style="max-width: 500px; display: flex; gap: 0.5rem; padding: 0.4rem;">
+                    <input type="text" id="home-search-input" placeholder="Search by restaurant, cuisine, or location..." style="border: none; background: transparent; flex: 1;">
+                    <button id="home-search-btn" class="btn btn-primary" style="padding: 0.6rem 1.5rem;">Search</button>
+                </div>
+            </div>
+            <div class="hero-image glass">
+                <img src="biryani.jpg" alt="Delicious Food Collection">
+            </div>
+        </section>
+
+        <!-- Featured Restaurants Section -->
+        <section style="margin-bottom: 4rem;">
+            <div class="section-title">
+                <h2>Featured Restaurants</h2>
+                <a href="restaurants.html" class="section-link">View All &rarr;</a>
+            </div>
+            <div id="featured-restaurants" class="grid-restaurants">
+                <!-- Seeded via script.js -->
+            </div>
+        </section>
+
+        <!-- Popular Food Items Section -->
+        <section>
+            <div class="section-title">
+                <h2>Popular Food Items</h2>
+            </div>
+            <div id="popular-foods" class="grid-foods">
+                <!-- Seeded via script.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (rendered dynamically by script.js) -->
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

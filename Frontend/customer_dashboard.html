@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - FoodPulse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 2rem;">Customer Dashboard</h1>
+        
+        <div class="dashboard-grid">
+            <!-- Left Side: Profile Card -->
+            <div class="panel-side">
+                <div id="cust-profile-info" class="profile-card glass">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+            
+            <!-- Right Side: Stats and Log -->
+            <div class="panel-main">
+                <!-- Stats Row -->
+                <div id="cust-stats-container" class="stat-grid">
+                    <!-- Populated dynamically -->
+                </div>
+                
+                <!-- Recent Orders -->
+                <div class="glass" style="padding: 2rem; border-radius: var(--radius-lg);">
+                    <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem;">Recent Activity Log</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Restaurant</th>
+                                    <th>Amount</th>
+                                    <th>Payment</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cust-recent-orders">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
