@@ -1,5 +1,5 @@
 // API Base URL - Configured to point to the Django Backend
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = 'https://food-ordering-application-bkkn.onrender.com';
 
 // ==========================================
 // IMAGE HELPERS
