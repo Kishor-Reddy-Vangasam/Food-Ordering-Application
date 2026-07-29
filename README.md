@@ -92,7 +92,11 @@ python -m http.server 3000
 ```
 
 ### 6. Open in Browser
-Navigate to: **http://127.0.0.1:3000**
+## 🚀 Live Demo
+
+**Frontend:** https://food-ordering-application-frontend-p2e1.onrender.com
+
+**Backend API:** https://food-ordering-application-bkkn.onrender.com*
 
 ---
 
