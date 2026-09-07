@@ -1,59 +1,67 @@
-// API Base URL - Configured to point to the Django Backend
+﻿// API Base URL - Configured to point to the Django Backend
 const API_BASE = 'https://food-ordering-application-bkkn.onrender.com';
 
 // ==========================================
 // IMAGE HELPERS
 // ==========================================
 
-// Known food image filenames stored in the DB → frontend file map
+// Prefix for all local food/restaurant images
+const IMG = 'images/';
+
+// Food image map: DB image_url â†’ local real-photo file
 const FOOD_IMAGE_MAP = {
-    'biryani.jpg':      'biryani.jpg',
-    'dosa.jpg':         'dosa.jpg',
-    'idli.jpg':         'idli.jpg',
-    'burger.jpg':       'burger.jpg',
-    'fries.jpg':        'fries.jpg',
-    'shake.jpg':        'shake.jpg',
-    'pizza.jpg':        'pizza.jpg',
-    'garlic_bread.jpg': 'garlic_bread.svg',
-    'lava_cake.jpg':    'lava_cake.jpg',
-    'gulab_jamun.jpg':  'gulab_jamun.svg',
+    'biryani.jpg':      IMG + 'biryani.jpg',
+    'dosa.jpg':         IMG + 'dosa.jpg',
+    'idli.jpg':         IMG + 'idli.jpg',
+    'burger.jpg':       IMG + 'burger.jpg',
+    'fries.jpg':        IMG + 'fries.jpg',
+    'shake.jpg':        IMG + 'shake.jpg',
+    'pizza.jpg':        IMG + 'pizza.jpg',
+    'garlic_bread.jpg': IMG + 'garlic_bread.jpg',
+    'lava_cake.jpg':    IMG + 'lava_cake.jpg',
+    'gulab_jamun.jpg':  'gulab_jamun.svg',   // accurate SVG illustration
 };
+
+// Fallback image shown when an img src fails to load
+const FALLBACK_IMG = IMG + 'biryani.jpg';
 
 /**
  * Returns the correct image src for a food item.
- * First tries to resolve by the image_url filename stored in DB,
- * then falls back to keyword matching on the food name.
+ * First tries direct DB filename lookup, then keyword match on food name.
  */
 function getFoodImage(imageUrl, foodName) {
-    // 1. Direct lookup by stored filename
-    if (imageUrl && FOOD_IMAGE_MAP[imageUrl]) {
-        return FOOD_IMAGE_MAP[imageUrl];
-    }
-    // 2. Keyword fallback on the filename or food name
-    const key = (imageUrl + ' ' + (foodName || '')).toLowerCase();
-    if (key.includes('biryani'))      return 'biryani.jpg';
-    if (key.includes('dosa'))         return 'dosa.jpg';
-    if (key.includes('idli'))         return 'idli.jpg';
-    if (key.includes('burger'))       return 'burger.jpg';
-    if (key.includes('fries') || key.includes('french')) return 'fries.jpg';
-    if (key.includes('shake') || key.includes('milk'))   return 'shake.jpg';
-    if (key.includes('pizza'))        return 'pizza.jpg';
-    if (key.includes('garlic'))       return 'garlic_bread.svg';
-    if (key.includes('lava') || key.includes('chocolate cake')) return 'lava_cake.jpg';
-    if (key.includes('gulab') || key.includes('jamun'))  return 'gulab_jamun.svg';
-    return 'biryani.jpg'; // ultimate fallback
+    if (imageUrl && FOOD_IMAGE_MAP[imageUrl]) return FOOD_IMAGE_MAP[imageUrl];
+    const key = ((imageUrl || '') + ' ' + (foodName || '')).toLowerCase();
+    if (key.includes('biryani'))                        return IMG + 'biryani.jpg';
+    if (key.includes('dosa'))                           return IMG + 'dosa.jpg';
+    if (key.includes('idli'))                           return IMG + 'idli.jpg';
+    if (key.includes('burger') || key.includes('cheese')) return IMG + 'burger.jpg';
+    if (key.includes('fries') || key.includes('french')) return IMG + 'fries.jpg';
+    if (key.includes('shake') || key.includes('milk'))  return IMG + 'shake.jpg';
+    if (key.includes('pizza'))                          return IMG + 'pizza.jpg';
+    if (key.includes('garlic') || key.includes('bread')) return IMG + 'garlic_bread.jpg';
+    if (key.includes('lava') || key.includes('cake') || key.includes('chocolate')) return IMG + 'lava_cake.jpg';
+    if (key.includes('gulab') || key.includes('jamun')) return 'gulab_jamun.svg';
+    return FALLBACK_IMG;
 }
 
 /**
- * Returns a representative image for a restaurant based on its cuisine type.
+ * Returns a real restaurant interior photo based on cuisine type.
  */
 function getRestaurantImage(cuisine) {
     const c = (cuisine || '').toLowerCase();
-    if (c.includes('italian') || c.includes('pizza')) return 'pizza.jpg';
-    if (c.includes('american') || c.includes('burger') || c.includes('fast food')) return 'burger.jpg';
-    if (c.includes('dessert') || c.includes('sweet') || c.includes('bakery')) return 'lava_cake.jpg';
-    if (c.includes('south indian') || c.includes('indian')) return 'biryani.jpg';
-    return 'biryani.jpg';
+    if (c.includes('italian') || c.includes('pizza'))                        return IMG + 'restaurant_italian.jpg';
+    if (c.includes('american') || c.includes('burger') || c.includes('fast')) return IMG + 'restaurant_american.jpg';
+    if (c.includes('dessert') || c.includes('sweet') || c.includes('bakery')) return IMG + 'restaurant_dessert.jpg';
+    return IMG + 'restaurant_indian.jpg';
+}
+
+/**
+ * Attach onerror fallback to an img element so broken images never show.
+ * Call this after setting img.src in JS, or add onerror inline in template strings.
+ */
+function imgFallback(img) {
+    img.onerror = function() { this.onerror = null; this.src = FALLBACK_IMG; };
 }
 
 // Global state
@@ -124,7 +132,7 @@ function renderNavbarAndFooter() {
         let navHtml = `
             <nav class="navbar glass">
                 <a href="index.html" class="logo">
-                    🍔 Food<span>Pulse</span>
+                    ðŸ” Food<span>Pulse</span>
                 </a>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
@@ -276,14 +284,14 @@ async function initHomePage() {
                     restGrid.innerHTML = featured.map(r => `
                         <div class="card-restaurant glass">
                             <div class="card-image">
-                                <img src="${getRestaurantImage(r.cuisine)}" alt="${r.restaurant_name}">
+                                <img src="${getRestaurantImage(r.cuisine)}" alt="${r.restaurant_name}" onerror="this.onerror=null;this.src=FALLBACK_IMG">
                                 <div class="card-badge">${r.cuisine}</div>
                             </div>
                             <div class="card-body">
                                 <h3 class="card-title">${r.restaurant_name}</h3>
-                                <p class="card-cuisine">📍 ${r.location} | Owner: ${r.owner_name}</p>
+                                <p class="card-cuisine">ðŸ“ ${r.location} | Owner: ${r.owner_name}</p>
                                 <div class="card-meta">
-                                    <div class="rating">⭐ ${r.rating.toFixed(1)}</div>
+                                    <div class="rating">â­ ${r.rating.toFixed(1)}</div>
                                     <a href="menu.html?restaurant=${encodeURIComponent(r.restaurant_name)}" class="btn btn-primary btn-sm">View Menu</a>
                                 </div>
                             </div>
@@ -311,7 +319,7 @@ async function initHomePage() {
                     foodGrid.innerHTML = popular.map(f => `
                         <div class="card-food glass">
                             <div class="card-image" style="height:150px;">
-                                <img src="${getFoodImage(f.image_url, f.food_name)}" alt="${f.food_name}">
+                                <img src="${getFoodImage(f.image_url, f.food_name)}" alt="${f.food_name}" onerror="this.onerror=null;this.src=FALLBACK_IMG">
                                 <span class="food-badge ${f.availability === 'Available' ? '' : 'out-of-stock'}">${f.availability}</span>
                             </div>
                             <div class="card-body" style="flex:1; display:flex; flex-direction:column; justify-content:space-between;">
@@ -321,7 +329,7 @@ async function initHomePage() {
                                     <p class="card-cuisine" style="margin-bottom:0.5rem; font-size:0.8rem; background:rgba(255,255,255,0.05); width:fit-content; padding:2px 8px; border-radius:50px;">${f.category}</p>
                                 </div>
                                 <div class="card-meta" style="border:none; padding:0;">
-                                    <span class="food-price">₹${f.price}</span>
+                                    <span class="food-price">â‚¹${f.price}</span>
                                     <button onclick="handleAddToCart('${f.food_name}', ${f.price})" class="btn btn-primary btn-sm" ${f.availability === 'Available' ? '' : 'disabled style="background:var(--text-muted); box-shadow:none; cursor:not-allowed;"'}>Add to Cart</button>
                                 </div>
                             </div>
@@ -547,14 +555,14 @@ async function initRestaurantsPage() {
                     listGrid.innerHTML = filtered.map(r => `
                         <div class="card-restaurant glass">
                             <div class="card-image">
-                                <img src="${getRestaurantImage(r.cuisine)}" alt="${r.restaurant_name}">
+                                <img src="${getRestaurantImage(r.cuisine)}" alt="${r.restaurant_name}" onerror="this.onerror=null;this.src=FALLBACK_IMG">
                                 <div class="card-badge">${r.cuisine}</div>
                             </div>
                             <div class="card-body">
                                 <h3 class="card-title">${r.restaurant_name}</h3>
-                                <p class="card-cuisine">📍 ${r.location} | Owner: ${r.owner_name}</p>
+                                <p class="card-cuisine">ðŸ“ ${r.location} | Owner: ${r.owner_name}</p>
                                 <div class="card-meta">
-                                    <div class="rating">⭐ ${r.rating.toFixed(1)}</div>
+                                    <div class="rating">â­ ${r.rating.toFixed(1)}</div>
                                     <a href="menu.html?restaurant=${encodeURIComponent(r.restaurant_name)}" class="btn btn-primary btn-sm">View Menu</a>
                                 </div>
                             </div>
@@ -603,8 +611,8 @@ async function initMenuPage() {
                 if (restaurant) {
                     restHeader.innerHTML = `
                         <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:0.5rem;">${restaurant.restaurant_name}</h1>
-                        <p style="color:var(--text-secondary); font-size:1.1rem;">📍 ${restaurant.location} | Cuisine: <strong>${restaurant.cuisine}</strong> | Contact: ${restaurant.contact}</p>
-                        <div class="rating" style="margin-top:0.5rem; font-size:1.2rem;">⭐ ${restaurant.rating.toFixed(1)}</div>
+                        <p style="color:var(--text-secondary); font-size:1.1rem;">ðŸ“ ${restaurant.location} | Cuisine: <strong>${restaurant.cuisine}</strong> | Contact: ${restaurant.contact}</p>
+                        <div class="rating" style="margin-top:0.5rem; font-size:1.2rem;">â­ ${restaurant.rating.toFixed(1)}</div>
                     `;
                 } else {
                     restHeader.innerHTML = `<h1>${restName} Menu</h1>`;
@@ -651,7 +659,7 @@ function renderMenuFoods(foods) {
     menuGrid.innerHTML = foods.map(f => `
         <div class="card-food glass">
             <div class="card-image" style="height:160px;">
-                <img src="${getFoodImage(f.image_url, f.food_name)}" alt="${f.food_name}">
+                <img src="${getFoodImage(f.image_url, f.food_name)}" alt="${f.food_name}" onerror="this.onerror=null;this.src=FALLBACK_IMG">
                 <span class="food-badge ${f.availability === 'Available' ? '' : 'out-of-stock'}">${f.availability}</span>
             </div>
             <div class="card-body" style="flex:1; display:flex; flex-direction:column; justify-content:space-between;">
@@ -660,7 +668,7 @@ function renderMenuFoods(foods) {
                     <p class="card-cuisine" style="margin-bottom:0.5rem; font-size:0.8rem; background:rgba(255,255,255,0.05); width:fit-content; padding:2px 8px; border-radius:50px;">${f.category}</p>
                 </div>
                 <div class="card-meta" style="border:none; padding:0;">
-                    <span class="food-price">₹${f.price}</span>
+                    <span class="food-price">â‚¹${f.price}</span>
                     <button onclick="handleAddToCart('${f.food_name}', ${f.price})" class="btn btn-primary btn-sm" ${f.availability === 'Available' ? '' : 'disabled style="background:var(--text-muted); box-shadow:none; cursor:not-allowed;"'}>Add to Cart</button>
                 </div>
             </div>
@@ -714,7 +722,7 @@ async function initCartPage() {
                 <div class="cart-item glass">
                     <div class="cart-item-details">
                         <span class="cart-item-title">${item.food_name}</span>
-                        <span class="cart-item-price">₹${item.price} each</span>
+                        <span class="cart-item-price">â‚¹${item.price} each</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:2rem;">
                         <div class="cart-qty-ctrl">
@@ -722,8 +730,8 @@ async function initCartPage() {
                             <span style="font-weight:600;">${item.quantity}</span>
                             <button onclick="handleUpdateCartQty(${item.cart_id}, ${item.quantity + 1})" class="cart-qty-btn">&plus;</button>
                         </div>
-                        <span class="food-price" style="font-size:1.2rem; min-width:80px; text-align:right;">₹${item.total_price}</span>
-                        <button onclick="handleRemoveCartItem(${item.cart_id})" class="btn btn-danger btn-sm" style="padding:0.4rem 0.6rem; border-radius:var(--radius-sm);">🗑️</button>
+                        <span class="food-price" style="font-size:1.2rem; min-width:80px; text-align:right;">â‚¹${item.total_price}</span>
+                        <button onclick="handleRemoveCartItem(${item.cart_id})" class="btn btn-danger btn-sm" style="padding:0.4rem 0.6rem; border-radius:var(--radius-sm);">ðŸ—‘ï¸</button>
                     </div>
                 </div>
             `).join('');
@@ -738,15 +746,15 @@ async function initCartPage() {
                     <h3 style="font-size:1.3rem; font-weight:700; margin-bottom:0.5rem; border-bottom:1px solid var(--border-color); padding-bottom:0.5rem;">Order Summary</h3>
                     <div class="summary-row">
                         <span>Subtotal</span>
-                        <span>₹${subtotal}</span>
+                        <span>â‚¹${subtotal}</span>
                     </div>
                     <div class="summary-row">
                         <span>Delivery Fee</span>
-                        <span>${delivery === 0 ? 'FREE' : '₹' + delivery}</span>
+                        <span>${delivery === 0 ? 'FREE' : 'â‚¹' + delivery}</span>
                     </div>
                     <div class="summary-row summary-total">
                         <span>Total</span>
-                        <span>₹${total}</span>
+                        <span>â‚¹${total}</span>
                     </div>
                     <a href="checkout.html" class="btn btn-primary" style="margin-top:1rem; width:100%;">Proceed to Checkout</a>
                 `;
@@ -855,21 +863,21 @@ async function initCheckoutPage() {
                     ${items.map(item => `
                         <div style="display:flex; justify-content:space-between; font-size:0.95rem;">
                             <span style="color:var(--text-secondary);">${item.food_name} x ${item.quantity}</span>
-                            <span>₹${item.total_price}</span>
+                            <span>â‚¹${item.total_price}</span>
                         </div>
                     `).join('')}
                 </div>
                 <div class="summary-row" style="font-size:0.95rem;">
                     <span>Subtotal</span>
-                    <span>₹${subtotal}</span>
+                    <span>â‚¹${subtotal}</span>
                 </div>
                 <div class="summary-row" style="font-size:0.95rem;">
                     <span>Delivery Fee</span>
-                    <span>${delivery === 0 ? 'FREE' : '₹' + delivery}</span>
+                    <span>${delivery === 0 ? 'FREE' : 'â‚¹' + delivery}</span>
                 </div>
                 <div class="summary-row summary-total" style="font-size:1.2rem; margin-top:0.75rem;">
                     <span>Total Amount</span>
-                    <span>₹${total}</span>
+                    <span>â‚¹${total}</span>
                 </div>
             `;
             
@@ -968,28 +976,28 @@ async function initOrdersPage() {
                             <!-- Timeline -->
                             <div class="timeline" style="margin-top:1rem;">
                                 <div class="timeline-item ${currentIdx >= 0 ? (currentIdx > 0 ? 'completed' : 'active') : ''}">
-                                    <div class="timeline-icon">📝</div>
+                                    <div class="timeline-icon">ðŸ“</div>
                                     <div class="timeline-content glass">
                                         <h4 class="timeline-title">Order Placed</h4>
                                         <p class="timeline-desc">Your order has been received by ${o.restaurant_name}</p>
                                     </div>
                                 </div>
                                 <div class="timeline-item ${currentIdx >= 1 ? (currentIdx > 1 ? 'completed' : 'active') : ''}">
-                                    <div class="timeline-icon">🍳</div>
+                                    <div class="timeline-icon">ðŸ³</div>
                                     <div class="timeline-content glass">
                                         <h4 class="timeline-title">Preparing Food</h4>
                                         <p class="timeline-desc">The chef is preparing your delicious meal</p>
                                     </div>
                                 </div>
                                 <div class="timeline-item ${currentIdx >= 2 ? (currentIdx > 2 ? 'completed' : 'active') : ''}">
-                                    <div class="timeline-icon">🚴</div>
+                                    <div class="timeline-icon">ðŸš´</div>
                                     <div class="timeline-content glass">
                                         <h4 class="timeline-title">Out for Delivery</h4>
                                         <p class="timeline-desc">Delivery partner is on their way to your address</p>
                                     </div>
                                 </div>
                                 <div class="timeline-item ${currentIdx >= 3 ? 'completed' : ''}">
-                                    <div class="timeline-icon">🎁</div>
+                                    <div class="timeline-icon">ðŸŽ</div>
                                     <div class="timeline-content glass">
                                         <h4 class="timeline-title">Delivered</h4>
                                         <p class="timeline-desc">Enjoy your meal!</p>
@@ -999,7 +1007,7 @@ async function initOrdersPage() {
                             
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; font-size:1.1rem; font-weight:700; border-top:1px solid var(--border-color); padding-top:1rem;">
                                 <span>Total Paid</span>
-                                <span class="food-price">₹${o.total_amount}</span>
+                                <span class="food-price">â‚¹${o.total_amount}</span>
                             </div>
                         </div>
                     `;
@@ -1030,7 +1038,7 @@ async function initOrdersPage() {
                                             <td>#${o.order_id}</td>
                                             <td>${o.order_date}</td>
                                             <td><strong>${o.restaurant_name}</strong></td>
-                                            <td style="font-weight:700;">₹${o.total_amount}</td>
+                                            <td style="font-weight:700;">â‚¹${o.total_amount}</td>
                                             <td><span class="badge-status ${o.payment_status === 'Paid' ? 'status-paid' : 'status-failed'}">${o.payment_status}</span></td>
                                             <td><span class="badge-status ${o.order_status === 'Delivered' ? 'status-delivered' : 'status-cancelled'}">${o.order_status}</span></td>
                                         </tr>
@@ -1063,11 +1071,11 @@ async function initCustomerDashboard() {
         profileNode.innerHTML = `
             <div class="profile-avatar">${currentUser.full_name.charAt(0)}</div>
             <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:0.25rem;">${currentUser.full_name}</h2>
-            <p style="color:var(--primary); font-weight:600; font-size:0.9rem; margin-bottom:1.5rem;">🔑 Customer (ID: ${currentUser.customer_id})</p>
+            <p style="color:var(--primary); font-weight:600; font-size:0.9rem; margin-bottom:1.5rem;">ðŸ”‘ Customer (ID: ${currentUser.customer_id})</p>
             <div style="text-align:left; width:100%; display:flex; flex-direction:column; gap:0.8rem; font-size:0.95rem; color:var(--text-secondary); border-top:1px solid var(--border-color); padding-top:1.5rem;">
-                <p>📧 <strong>Email:</strong> ${currentUser.email}</p>
-                <p>📞 <strong>Phone:</strong> ${currentUser.phone}</p>
-                <p>🏠 <strong>Address:</strong> ${currentUser.address}</p>
+                <p>ðŸ“§ <strong>Email:</strong> ${currentUser.email}</p>
+                <p>ðŸ“ž <strong>Phone:</strong> ${currentUser.phone}</p>
+                <p>ðŸ  <strong>Address:</strong> ${currentUser.address}</p>
             </div>
             <button onclick="handleDeleteProfile(${currentUser.customer_id})" class="btn btn-danger btn-sm" style="margin-top:1.5rem; width:100%;">Delete Account</button>
         `;
@@ -1109,7 +1117,7 @@ async function initCustomerDashboard() {
                         <tr>
                             <td>#${o.order_id}</td>
                             <td><strong>${o.restaurant_name}</strong></td>
-                            <td>₹${o.total_amount}</td>
+                            <td>â‚¹${o.total_amount}</td>
                             <td><span class="badge-status ${o.payment_status === 'Paid' ? 'status-paid' : 'status-pending'}">${o.payment_status}</span></td>
                             <td><span class="badge-status ${o.order_status === 'Delivered' ? 'status-delivered' : o.order_status === 'Cancelled' ? 'status-cancelled' : 'status-placed'}">${o.order_status}</span></td>
                         </tr>
@@ -1157,14 +1165,14 @@ async function initRestaurantDashboard() {
     // 1. Render Restaurant profile info
     if (detailsNode) {
         detailsNode.innerHTML = `
-            <div class="profile-avatar" style="background:linear-gradient(135deg, #10b981, #3b82f6)">🍽️</div>
+            <div class="profile-avatar" style="background:linear-gradient(135deg, #10b981, #3b82f6)">ðŸ½ï¸</div>
             <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:0.25rem;">${currentUser.restaurant_name}</h2>
-            <p style="color:var(--success); font-weight:600; font-size:0.9rem; margin-bottom:1.5rem;">🔑 Manager (Owner: ${currentUser.owner_name})</p>
+            <p style="color:var(--success); font-weight:600; font-size:0.9rem; margin-bottom:1.5rem;">ðŸ”‘ Manager (Owner: ${currentUser.owner_name})</p>
             <div style="text-align:left; width:100%; display:flex; flex-direction:column; gap:0.8rem; font-size:0.95rem; color:var(--text-secondary); border-top:1px solid var(--border-color); padding-top:1.5rem;">
-                <p>📍 <strong>Location:</strong> ${currentUser.location}</p>
-                <p>🍜 <strong>Cuisine:</strong> ${currentUser.cuisine}</p>
-                <p>📞 <strong>Contact:</strong> ${currentUser.contact}</p>
-                <p>⭐ <strong>Rating:</strong> ⭐ ${currentUser.rating.toFixed(1)}</p>
+                <p>ðŸ“ <strong>Location:</strong> ${currentUser.location}</p>
+                <p>ðŸœ <strong>Cuisine:</strong> ${currentUser.cuisine}</p>
+                <p>ðŸ“ž <strong>Contact:</strong> ${currentUser.contact}</p>
+                <p>â­ <strong>Rating:</strong> â­ ${currentUser.rating.toFixed(1)}</p>
             </div>
         `;
     }
@@ -1222,7 +1230,7 @@ async function initRestaurantDashboard() {
                             <td>#${f.food_id}</td>
                             <td><strong>${f.food_name}</strong></td>
                             <td>${f.category}</td>
-                            <td>₹${f.price}</td>
+                            <td>â‚¹${f.price}</td>
                             <td>
                                 <select onchange="handleUpdateFoodStatus(${f.food_id}, this.value)" class="select-filter" style="padding:0.35rem 0.75rem; min-width:110px; font-size:0.85rem;">
                                     <option value="Available" ${f.availability === 'Available' ? 'selected' : ''}>Available</option>
@@ -1253,7 +1261,7 @@ async function initRestaurantDashboard() {
                         <tr>
                             <td>#${o.order_id}</td>
                             <td>${o.customer_name}</td>
-                            <td>₹${o.total_amount}</td>
+                            <td>â‚¹${o.total_amount}</td>
                             <td>
                                 <select onchange="handleUpdatePaymentStatus(${o.order_id}, this.value)" class="select-filter" style="padding:0.35rem 0.75rem; min-width:110px; font-size:0.85rem;">
                                     <option value="Pending" ${o.payment_status === 'Pending' ? 'selected' : ''}>Pending</option>
@@ -1470,7 +1478,7 @@ async function loadAdminTab(tabName) {
                                         <td>${r.cuisine}</td>
                                         <td>${r.location}</td>
                                         <td>${r.contact}</td>
-                                        <td>⭐ ${r.rating}</td>
+                                        <td>â­ ${r.rating}</td>
                                         <td>
                                             <button onclick="adminDeleteEntity('restaurants', ${r.restaurant_id})" class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem;">Delete</button>
                                         </td>
@@ -1509,7 +1517,7 @@ async function loadAdminTab(tabName) {
                                         <td><strong>${f.food_name}</strong></td>
                                         <td>${f.restaurant_name}</td>
                                         <td>${f.category}</td>
-                                        <td>₹${f.price}</td>
+                                        <td>â‚¹${f.price}</td>
                                         <td><span class="badge-status ${f.availability === 'Available' ? 'status-paid' : 'status-failed'}">${f.availability}</span></td>
                                         <td>
                                             <button onclick="adminDeleteEntity('foods', ${f.food_id})" class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem;">Delete</button>
@@ -1549,8 +1557,8 @@ async function loadAdminTab(tabName) {
                                         <td><strong>${c.customer_name}</strong></td>
                                         <td>${c.food_name}</td>
                                         <td>${c.quantity}</td>
-                                        <td>₹${c.price}</td>
-                                        <td>₹${c.total_price}</td>
+                                        <td>â‚¹${c.price}</td>
+                                        <td>â‚¹${c.total_price}</td>
                                         <td>
                                             <button onclick="adminDeleteEntity('cart', ${c.cart_id})" class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem;">Delete</button>
                                         </td>
@@ -1590,7 +1598,7 @@ async function loadAdminTab(tabName) {
                                         <td><strong>${o.customer_name}</strong></td>
                                         <td>${o.restaurant_name}</td>
                                         <td>${o.order_date}</td>
-                                        <td>₹${o.total_amount}</td>
+                                        <td>â‚¹${o.total_amount}</td>
                                         <td><span class="badge-status ${o.payment_status === 'Paid' ? 'status-paid' : 'status-pending'}">${o.payment_status}</span></td>
                                         <td><span class="badge-status ${o.order_status === 'Delivered' ? 'status-delivered' : o.order_status === 'Cancelled' ? 'status-cancelled' : 'status-placed'}">${o.order_status}</span></td>
                                         <td>
@@ -1659,3 +1667,4 @@ window.adminShowAddRestaurantModal = async function() {
         console.error(e);
     }
 };
+
