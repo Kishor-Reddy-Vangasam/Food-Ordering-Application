@@ -329,7 +329,7 @@ async function initHomePage() {
                                     <p class="card-cuisine" style="margin-bottom:0.5rem; font-size:0.8rem; background:rgba(255,255,255,0.05); width:fit-content; padding:2px 8px; border-radius:50px;">${f.category}</p>
                                 </div>
                                 <div class="card-meta" style="border:none; padding:0;">
-                                    <span class="food-price">â‚¹${f.price}</span>
+                                    <span class="food-price">₹${f.price}</span>
                                     <button onclick="handleAddToCart('${f.food_name}', ${f.price})" class="btn btn-primary btn-sm" ${f.availability === 'Available' ? '' : 'disabled style="background:var(--text-muted); box-shadow:none; cursor:not-allowed;"'}>Add to Cart</button>
                                 </div>
                             </div>
@@ -668,7 +668,7 @@ function renderMenuFoods(foods) {
                     <p class="card-cuisine" style="margin-bottom:0.5rem; font-size:0.8rem; background:rgba(255,255,255,0.05); width:fit-content; padding:2px 8px; border-radius:50px;">${f.category}</p>
                 </div>
                 <div class="card-meta" style="border:none; padding:0;">
-                    <span class="food-price">â‚¹${f.price}</span>
+                    <span class="food-price">₹${f.price}</span>
                     <button onclick="handleAddToCart('${f.food_name}', ${f.price})" class="btn btn-primary btn-sm" ${f.availability === 'Available' ? '' : 'disabled style="background:var(--text-muted); box-shadow:none; cursor:not-allowed;"'}>Add to Cart</button>
                 </div>
             </div>
@@ -722,7 +722,7 @@ async function initCartPage() {
                 <div class="cart-item glass">
                     <div class="cart-item-details">
                         <span class="cart-item-title">${item.food_name}</span>
-                        <span class="cart-item-price">â‚¹${item.price} each</span>
+                        <span class="cart-item-price">₹${item.price} each</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:2rem;">
                         <div class="cart-qty-ctrl">
@@ -730,7 +730,7 @@ async function initCartPage() {
                             <span style="font-weight:600;">${item.quantity}</span>
                             <button onclick="handleUpdateCartQty(${item.cart_id}, ${item.quantity + 1})" class="cart-qty-btn">&plus;</button>
                         </div>
-                        <span class="food-price" style="font-size:1.2rem; min-width:80px; text-align:right;">â‚¹${item.total_price}</span>
+                        <span class="food-price" style="font-size:1.2rem; min-width:80px; text-align:right;">₹${item.total_price}</span>
                         <button onclick="handleRemoveCartItem(${item.cart_id})" class="btn btn-danger btn-sm" style="padding:0.4rem 0.6rem; border-radius:var(--radius-sm);">ðŸ—‘ï¸</button>
                     </div>
                 </div>
@@ -746,15 +746,15 @@ async function initCartPage() {
                     <h3 style="font-size:1.3rem; font-weight:700; margin-bottom:0.5rem; border-bottom:1px solid var(--border-color); padding-bottom:0.5rem;">Order Summary</h3>
                     <div class="summary-row">
                         <span>Subtotal</span>
-                        <span>â‚¹${subtotal}</span>
+                        <span>₹${subtotal}</span>
                     </div>
                     <div class="summary-row">
                         <span>Delivery Fee</span>
-                        <span>${delivery === 0 ? 'FREE' : 'â‚¹' + delivery}</span>
+                        <span>${delivery === 0 ? 'FREE' : '₹' + delivery}</span>
                     </div>
                     <div class="summary-row summary-total">
                         <span>Total</span>
-                        <span>â‚¹${total}</span>
+                        <span>₹${total}</span>
                     </div>
                     <a href="checkout.html" class="btn btn-primary" style="margin-top:1rem; width:100%;">Proceed to Checkout</a>
                 `;
@@ -863,21 +863,21 @@ async function initCheckoutPage() {
                     ${items.map(item => `
                         <div style="display:flex; justify-content:space-between; font-size:0.95rem;">
                             <span style="color:var(--text-secondary);">${item.food_name} x ${item.quantity}</span>
-                            <span>â‚¹${item.total_price}</span>
+                            <span>₹${item.total_price}</span>
                         </div>
                     `).join('')}
                 </div>
                 <div class="summary-row" style="font-size:0.95rem;">
                     <span>Subtotal</span>
-                    <span>â‚¹${subtotal}</span>
+                    <span>₹${subtotal}</span>
                 </div>
                 <div class="summary-row" style="font-size:0.95rem;">
                     <span>Delivery Fee</span>
-                    <span>${delivery === 0 ? 'FREE' : 'â‚¹' + delivery}</span>
+                    <span>${delivery === 0 ? 'FREE' : '₹' + delivery}</span>
                 </div>
                 <div class="summary-row summary-total" style="font-size:1.2rem; margin-top:0.75rem;">
                     <span>Total Amount</span>
-                    <span>â‚¹${total}</span>
+                    <span>₹${total}</span>
                 </div>
             `;
             
@@ -1007,7 +1007,7 @@ async function initOrdersPage() {
                             
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; font-size:1.1rem; font-weight:700; border-top:1px solid var(--border-color); padding-top:1rem;">
                                 <span>Total Paid</span>
-                                <span class="food-price">â‚¹${o.total_amount}</span>
+                                <span class="food-price">₹${o.total_amount}</span>
                             </div>
                         </div>
                     `;
@@ -1038,7 +1038,7 @@ async function initOrdersPage() {
                                             <td>#${o.order_id}</td>
                                             <td>${o.order_date}</td>
                                             <td><strong>${o.restaurant_name}</strong></td>
-                                            <td style="font-weight:700;">â‚¹${o.total_amount}</td>
+                                            <td style="font-weight:700;">₹${o.total_amount}</td>
                                             <td><span class="badge-status ${o.payment_status === 'Paid' ? 'status-paid' : 'status-failed'}">${o.payment_status}</span></td>
                                             <td><span class="badge-status ${o.order_status === 'Delivered' ? 'status-delivered' : 'status-cancelled'}">${o.order_status}</span></td>
                                         </tr>
@@ -1117,7 +1117,7 @@ async function initCustomerDashboard() {
                         <tr>
                             <td>#${o.order_id}</td>
                             <td><strong>${o.restaurant_name}</strong></td>
-                            <td>â‚¹${o.total_amount}</td>
+                            <td>₹${o.total_amount}</td>
                             <td><span class="badge-status ${o.payment_status === 'Paid' ? 'status-paid' : 'status-pending'}">${o.payment_status}</span></td>
                             <td><span class="badge-status ${o.order_status === 'Delivered' ? 'status-delivered' : o.order_status === 'Cancelled' ? 'status-cancelled' : 'status-placed'}">${o.order_status}</span></td>
                         </tr>
@@ -1230,7 +1230,7 @@ async function initRestaurantDashboard() {
                             <td>#${f.food_id}</td>
                             <td><strong>${f.food_name}</strong></td>
                             <td>${f.category}</td>
-                            <td>â‚¹${f.price}</td>
+                            <td>₹${f.price}</td>
                             <td>
                                 <select onchange="handleUpdateFoodStatus(${f.food_id}, this.value)" class="select-filter" style="padding:0.35rem 0.75rem; min-width:110px; font-size:0.85rem;">
                                     <option value="Available" ${f.availability === 'Available' ? 'selected' : ''}>Available</option>
@@ -1261,7 +1261,7 @@ async function initRestaurantDashboard() {
                         <tr>
                             <td>#${o.order_id}</td>
                             <td>${o.customer_name}</td>
-                            <td>â‚¹${o.total_amount}</td>
+                            <td>₹${o.total_amount}</td>
                             <td>
                                 <select onchange="handleUpdatePaymentStatus(${o.order_id}, this.value)" class="select-filter" style="padding:0.35rem 0.75rem; min-width:110px; font-size:0.85rem;">
                                     <option value="Pending" ${o.payment_status === 'Pending' ? 'selected' : ''}>Pending</option>
@@ -1517,7 +1517,7 @@ async function loadAdminTab(tabName) {
                                         <td><strong>${f.food_name}</strong></td>
                                         <td>${f.restaurant_name}</td>
                                         <td>${f.category}</td>
-                                        <td>â‚¹${f.price}</td>
+                                        <td>₹${f.price}</td>
                                         <td><span class="badge-status ${f.availability === 'Available' ? 'status-paid' : 'status-failed'}">${f.availability}</span></td>
                                         <td>
                                             <button onclick="adminDeleteEntity('foods', ${f.food_id})" class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem;">Delete</button>
@@ -1557,8 +1557,8 @@ async function loadAdminTab(tabName) {
                                         <td><strong>${c.customer_name}</strong></td>
                                         <td>${c.food_name}</td>
                                         <td>${c.quantity}</td>
-                                        <td>â‚¹${c.price}</td>
-                                        <td>â‚¹${c.total_price}</td>
+                                        <td>₹${c.price}</td>
+                                        <td>₹${c.total_price}</td>
                                         <td>
                                             <button onclick="adminDeleteEntity('cart', ${c.cart_id})" class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem;">Delete</button>
                                         </td>
@@ -1598,7 +1598,7 @@ async function loadAdminTab(tabName) {
                                         <td><strong>${o.customer_name}</strong></td>
                                         <td>${o.restaurant_name}</td>
                                         <td>${o.order_date}</td>
-                                        <td>â‚¹${o.total_amount}</td>
+                                        <td>₹${o.total_amount}</td>
                                         <td><span class="badge-status ${o.payment_status === 'Paid' ? 'status-paid' : 'status-pending'}">${o.payment_status}</span></td>
                                         <td><span class="badge-status ${o.order_status === 'Delivered' ? 'status-delivered' : o.order_status === 'Cancelled' ? 'status-cancelled' : 'status-placed'}">${o.order_status}</span></td>
                                         <td>
